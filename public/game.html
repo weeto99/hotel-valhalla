@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Hotel Valhalla - Gioco</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <img src="images/logo.png" alt="Logo Hotel Valhalla" class="logo">
+        <h1>Hotel Valhalla</h1>
+    </div>
+
+    <div id="gameContainer">
+        <div id="playerInfo">Caricamento dati...</div>
+
+        <div id="roomControls">
+            <label for="roomSelect">Sposta in:</label>
+            <select id="roomSelect">
+                <option value="Hall">Hall</option>
+                <option value="Arena">Arena</option>
+                <option value="Stanza 1">Stanza 1</option>
+                <option value="Stanza 2">Stanza 2</option>
+                <option value="Stanza 3">Stanza 3</option>
+                <option value="Stanza 4">Stanza 4</option>
+                <option value="Stanza 5">Stanza 5</option>
+            </select>
+            <button onclick="move()">Vai</button>
+            <p id="currentRoom"></p>
+        </div>
+
+        <div id="challengeControls">
+            <h3>Sfida un giocatore</h3>
+            <input type="text" id="challengeTarget" placeholder="Nome avversario">
+            <button onclick="challengePlayer()">Sfida</button>
+        </div>
+
+        <div id="playerList">
+            <h3>Giocatori connessi:</h3>
+            <ul id="players"></ul>
+        </div>
+
+        <div id="fightInterface" style="display:none;">
+            <h3>Combattimento</h3>
+            <p id="fightLog">In attesa...</p>
+            <div class="attack-buttons">
+                <button id="attack1" class="attack-button" onclick="sendAttack(0)">Attacco 1</button>
+                <button id="attack2" class="attack-button" onclick="sendAttack(1)">Attacco 2</button>
+                <button id="attack3" class="attack-button" onclick="sendAttack(2)">Attacco 3</button>
+                <button id="special1" class="attack-button" onclick="sendAttack(3)">Speciale 1</button>
+                <button id="special2" class="attack-button" onclick="sendAttack(4)">Speciale 2</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Effetti visivi -->
+    <div id="effectContainer"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
+</body>
+</html>

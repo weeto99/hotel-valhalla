@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Hotel Valhalla - Accesso</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <img src="images/logo.png" alt="Logo Hotel Valhalla" class="logo">
+
+        <div class="form-box">
+            <h2>Accedi</h2>
+            <input type="text" id="loginUsername" placeholder="Username">
+            <input type="password" id="loginPassword" placeholder="Password">
+            <button onclick="login()">Accedi</button>
+        </div>
+
+        <hr class="divider">
+
+        <div class="form-box">
+            <h2>Registrati</h2>
+            <input type="text" id="registerUsername" placeholder="Username">
+            <input type="password" id="registerPassword" placeholder="Password">
+            
+            <label for="characterSelect">Scegli il tuo personaggio norreno:</label>
+            <select id="characterSelect">
+                <option value="Thor">Thor - Martello del Tuono</option>
+                <option value="Loki">Loki - Pugnale dell’Inganno</option>
+                <option value="Freya">Freya - Lancia delle Valchirie</option>
+                <option value="Odin">Odin - Lancia di Gungnir</option>
+                <option value="Frigg">Frigg - Spada della Saggezza</option>
+                <option value="Baldur">Baldur - Scudo della Luce</option>
+                <option value="Hel">Hel - Lama delle Ombre</option>
+                <option value="Tyr">Tyr - Ascia della Giustizia</option>
+                <option value="Sif">Sif - Falce d’Oro</option>
+                <option value="Fenrir">Fenrir - Artigli del Caos</option>
+                <option value="Skadi">Skadi - Arco dei Ghiacci</option>
+                <option value="Heimdall">Heimdall - Spada dell’Alba</option>
+            </select>
+
+            <button onclick="register()">Registrati</button>
+        </div>
+
+        <p id="message" class="message"></p>
+    </div>
+
+    <script>
+        function login() {
+            const username = document.getElementById("loginUsername").value.trim();
+            const password = document.getElementById("loginPassword").value;
+
+            const message = document.getElementById("message");
+
+            if (!username || !password) {
+                message.style.color = "red";
+                message.innerText = "Inserisci username e password.";
+                return;
+            }
+
+            fetch("/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    message.style.color = "green";
+                    message.innerText = "Login riuscito!";
+                    localStorage.setItem("username", username);
+                    localStorage.setItem("character", data.character);
+                    setTimeout(() => {
+                        window.location.href = "game.html";
+                    }, 1000);
+                } else {
+                    message.style.color = "red";
+                    message.innerText = data.message;
+                }
+            });
+        }
+
+        function register() {
+            const username = document.getElementById("registerUsername").value.trim();
+            const password = document.getElementById("registerPassword").value;
+            const character = document.getElementById("characterSelect").value;
+
+            const message = document.getElementById("message");
+
+            if (!username || !password || !character) {
+                message.style.color = "red";
+                message.innerText = "Compila tutti i campi per registrarti.";
+                return;
+            }
+
+            fetch("/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password, character })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    message.style.color = "green";
+                    message.innerText = "Registrazione completata! Ora puoi accedere.";
+                } else {
+                    message.style.color = "red";
+                    message.innerText = data.message;
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+{
+  "Thor": {
+    "attacks": {
+      "normal": [
+        {
+          "name": "Martellata",
+          "damage": 15
+        },
+        {
+          "name": "Tuono Rapido",
+          "damage": 12
+        },
+        {
+          "name": "Colpo Tonante",
+          "damage": 18
+        }
+      ],
+      "special": [
+        {
+          "name": "Tempesta di Fulmini",
+          "damage": 30,
+          "effect": "Stordisce per 1 turno"
+        },
+        {
+          "name": "Ira di Asgard",
+          "damage": 35,
+          "effect": "Danno aumentato se sotto metà vita"
+        }
+      ]
+    },
+    "passive": "Danno aumentato del 10% quando è sotto metà vita."
+  },
+  "Loki": {
+    "attacks": {
+      "normal": [
+        {
+          "name": "Pugnale",
+          "damage": 14
+        },
+        {
+          "name": "Inganno",
+          "damage": 10
+        },
+        {
+          "name": "Colpo Illusorio",
+          "damage": 16
+        }
+      ],
+      "special": [
+        {
+          "name": "Duplicazione",
+          "damage": 0,
+          "effect": "Evita il prossimo attacco"
+        },
+        {
+          "name": "Trappola Mentale",
+          "damage": 25,
+          "effect": "50% di confondere il nemico"
+        }
+      ]
+    },
+    "passive": "10% di probabilità di evitare qualsiasi attacco."
+  },
+  "Freya": {
+    "attacks": {
+      "normal": [
+        {
+          "name": "Colpo Leggiadro",
+          "damage": 13
+        },
+        {
+          "name": "Affondo della Valchiria",
+          "damage": 15
+        },
+        {
+          "name": "Lama Graziosa",
+          "damage": 14
+        }
+      ],
+      "special": [
+        {
+          "name": "Richiamo delle Valchirie",
+          "damage": 28,
+          "effect": "Cura 10 HP a Freya"
+        },
+        {
+          "name": "Benedizione di Freya",
+          "damage": 0,
+          "effect": "Cura 30 HP"
+        }
+      ]
+    },
+    "passive": "Rigenera 5% di vita ogni turno."
+  },
+  "Odin": {
+    "attacks": {
+      "normal": [
+        {
+          "name": "Colpo di Gungnir",
+          "damage": 17
+        },
+        {
+          "name": "Visione del Tutto",
+          "damage": 12
+        },
+        {
+          "name": "Spinta Sacra",
+          "damage": 14
+        }
+      ],
+      "special": [
+        {
+          "name": "Saggezza Eterna",
+          "damage": 0,
+          "effect": "Scopri l’attacco avversario"
+        },
+        {
+          "name": "Tempesta Runica",
+          "damage": 32,
+          "effect": "Stordisce"
+        }
+      ]
+    },
+    "passive": "Vede sempre la prossima mossa dell'avversario."
+  },
+  "Frigg": {
+    "attacks": {
+      "normal": [
+        {
+          "name": "Taglio Saggio",
+          "damage": 13
+        },
+        {
+          "name": "Colpo Tranquillo",
+          "damage": 11
+        },
+        {
+          "name": "Scudo Mentale",
+          "damage": 10
+        }
+      ],
+      "special": [
+        {
+          "name": "Presagio del Destino",
+          "damage": 0,
+          "effect": "Evita un attacco"
+        },
+        {
+          "name": "Protezione Divina",
+          "damage": 0,
+          "effect": "Riduce i danni del 50% per 2 turni"
+        }
+      ]
+    },
+    "passive": "Riduce i danni subiti del 10%."
+  }
+}
