@@ -8,10 +8,15 @@ const { Server } = require("socket.io");
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.static("public"));
 app.use(bodyParser.json());
+
+// 👉 Questa riga serve login.html alla radice "/"
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/public/login.html");
+});
 
 const USERS_FILE = path.join(__dirname, "users.json");
 const CHARACTERS_FILE = path.join(__dirname, "characters.json");
