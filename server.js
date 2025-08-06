@@ -13,7 +13,6 @@ const PORT = process.env.PORT || 3000;
 app.use(express.static("public"));
 app.use(bodyParser.json());
 
-// 👉 Questa riga serve login.html alla radice "/"
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/login.html");
 });
@@ -87,12 +86,10 @@ io.on("connection", (socket) => {
   socket.on("sendChallenge", (targetName) => {
     const challenger = players[socket.id];
     const targetEntry = Object.entries(players).find(([_, p]) => p.name === targetName);
-
     if (!challenger || !targetEntry) return;
     const [targetId, target] = targetEntry;
 
     if (challenger.room !== "Arena" || target.room !== "Arena") return;
-
     io.to(targetId).emit("challengeRequest", { from: challenger.name });
   });
 
@@ -100,7 +97,6 @@ io.on("connection", (socket) => {
     const target = players[socket.id];
     const challengerEntry = Object.entries(players).find(([_, p]) => p.name === from);
     if (!challengerEntry) return;
-
     const [challengerId, challenger] = challengerEntry;
 
     if (!accepted) {
@@ -120,8 +116,8 @@ io.on("connection", (socket) => {
       io.to(id).emit("startFight", {
         opponent: opponent.name,
         attacks: [
-          ...self.characterData.attacks.normal.map(name => ({ name })),
-          ...self.characterData.attacks.special.map(name => ({ name }))
+          ...self.characterData.attacks,
+          ...self.characterData.specials
         ]
       });
     });
@@ -133,7 +129,6 @@ io.on("connection", (socket) => {
   socket.on("fightAction", ({ index }) => {
     const fightEntry = Object.entries(fights).find(([_, f]) => f.players.includes(socket.id));
     if (!fightEntry) return;
-
     const [fightId, fight] = fightEntry;
     const attackerId = socket.id;
     const defenderId = fight.players.find(id => id !== attackerId);
@@ -150,10 +145,8 @@ io.on("connection", (socket) => {
       return;
     }
 
-    const attackName = isSpecial
-      ? attacker.characterData.attacks.special[index - 3]
-      : attacker.characterData.attacks.normal[index];
-
+    const allAttacks = [...attacker.characterData.attacks, ...attacker.characterData.specials];
+    const attackName = allAttacks[index];
     const hit = Math.random() < 0.75;
     let log = `${attacker.name} usa ${attackName}`;
 
@@ -161,7 +154,7 @@ io.on("connection", (socket) => {
       let damage = 20;
       attacker.normalHits = isSpecial ? 0 : attacker.normalHits + 1;
 
-      // BONUS INDIVIDUALI
+      // Bonus passivi
       if (attacker.character === "Thor" && attacker.hp < 50) damage *= 1.1;
       if (attacker.character === "Tyr") damage += 5;
       if (attacker.character === "Fenrir") damage *= 1 + attacker.points * 0.05;
