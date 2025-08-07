@@ -8,7 +8,7 @@ window.onload = () => {
     const username = sessionStorage.getItem("username");
     const character = sessionStorage.getItem("character");
 
-    // 🔒 Se non loggato, reindirizza al login
+    // 🔒 Reindirizza se non loggato
     if (!username || !character) {
         sessionStorage.clear();
         window.location.href = "login.html";
@@ -64,7 +64,7 @@ socket.on("startFight", ({ opponent, attacks }) => {
     ["attack1", "attack2", "attack3", "special1", "special2"].forEach((id, index) => {
         const button = document.getElementById(id);
         if (attacks[index]) {
-            button.innerText = attacks[index]; // correzione: attacchi come stringhe
+            button.innerText = attacks[index];
             button.disabled = true;
             button.dataset.attackIndex = index;
         }
@@ -124,5 +124,5 @@ function addVisualEffect(effectType) {
 
 function playSound(name) {
     const audio = new Audio(`sounds/${name}.mp3`);
-    audio.play().catch(() => {}); // ignora errori su autoplay
+    audio.play().catch(() => {});
 }
