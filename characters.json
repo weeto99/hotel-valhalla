@@ -153,5 +153,222 @@
       ]
     },
     "passive": "Riduce i danni subiti del 10%."
+  },
+  "Baldur": {
+    "attacks": {
+      "normal": [
+        {
+          "name": "Scudo Radiante",
+          "damage": 14
+        },
+        {
+          "name": "Colpo Lucente",
+          "damage": 12
+        },
+        {
+          "name": "Spinta di Luce",
+          "damage": 13
+        }
+      ],
+      "special": [
+        {
+          "name": "Benedizione della Luce",
+          "damage": 0,
+          "effect": "Cura 20 HP"
+        },
+        {
+          "name": "Esplosione Solare",
+          "damage": 30,
+          "effect": "Ignora 20% difesa nemica"
+        }
+      ]
+    },
+    "passive": "Riceve 20% danni in meno dai colpi speciali."
+  },
+  "Hel": {
+    "attacks": {
+      "normal": [
+        {
+          "name": "Morsa Oscura",
+          "damage": 13
+        },
+        {
+          "name": "Lama della Morte",
+          "damage": 15
+        },
+        {
+          "name": "Grido dell’Abisso",
+          "damage": 11
+        }
+      ],
+      "special": [
+        {
+          "name": "Abbraccio del Vuoto",
+          "damage": 26,
+          "effect": "Avvelena 5 HP per turno"
+        },
+        {
+          "name": "Oscurità Totale",
+          "damage": 35,
+          "effect": "25% chance di confondere"
+        }
+      ]
+    },
+    "passive": "Infligge 5 danni extra se l’avversario è già ferito."
+  },
+  "Tyr": {
+    "attacks": {
+      "normal": [
+        {
+          "name": "Ascia della Legge",
+          "damage": 18
+        },
+        {
+          "name": "Giustizia Implacabile",
+          "damage": 16
+        },
+        {
+          "name": "Urlo del Tribunale",
+          "damage": 12
+        }
+      ],
+      "special": [
+        {
+          "name": "Verdetto Finale",
+          "damage": 35,
+          "effect": "Colpisce sempre se la vita nemica è sotto il 40%"
+        },
+        {
+          "name": "Scudo della Legge",
+          "damage": 0,
+          "effect": "Blocca il prossimo attacco"
+        }
+      ]
+    },
+    "passive": "Ogni attacco infligge +5 danni."
+  },
+  "Sif": {
+    "attacks": {
+      "normal": [
+        {
+          "name": "Taglio Dorato",
+          "damage": 14
+        },
+        {
+          "name": "Affondo Celere",
+          "damage": 13
+        },
+        {
+          "name": "Danza della Falce",
+          "damage": 15
+        }
+      ],
+      "special": [
+        {
+          "name": "Pioggia d’Oro",
+          "damage": 28,
+          "effect": "25% di colpire due volte"
+        },
+        {
+          "name": "Benedizione dei Campi",
+          "damage": 0,
+          "effect": "Aumenta attacco normale del 10% per 2 turni"
+        }
+      ]
+    },
+    "passive": "15% di probabilità che un attacco normale colpisca due volte."
+  },
+  "Fenrir": {
+    "attacks": {
+      "normal": [
+        {
+          "name": "Morso Bestiale",
+          "damage": 16
+        },
+        {
+          "name": "Grido del Branco",
+          "damage": 14
+        },
+        {
+          "name": "Fendente Selvaggio",
+          "damage": 15
+        }
+      ],
+      "special": [
+        {
+          "name": "Artigli del Caos",
+          "damage": 35,
+          "effect": "Colpisce due nemici (se presenti)"
+        },
+        {
+          "name": "Ruggito Primordiale",
+          "damage": 0,
+          "effect": "Aumenta il danno del 20% per 3 turni"
+        }
+      ]
+    },
+    "passive": "Ogni vittoria aumenta i danni futuri del 5% cumulativo."
+  },
+  "Skadi": {
+    "attacks": {
+      "normal": [
+        {
+          "name": "Freccia Gelida",
+          "damage": 13
+        },
+        {
+          "name": "Arco del Nord",
+          "damage": 12
+        },
+        {
+          "name": "Colpo Congelante",
+          "damage": 14
+        }
+      ],
+      "special": [
+        {
+          "name": "Tempesta Invernale",
+          "damage": 30,
+          "effect": "Rallenta l'avversario"
+        },
+        {
+          "name": "Gelo Mortale",
+          "damage": 28,
+          "effect": "25% di bloccare un turno"
+        }
+      ]
+    },
+    "passive": "Riduce del 15% la probabilità che l’avversario attacchi con successo."
+  },
+  "Heimdall": {
+    "attacks": {
+      "normal": [
+        {
+          "name": "Guardia Sacra",
+          "damage": 14
+        },
+        {
+          "name": "Spada dell’Alba",
+          "damage": 15
+        },
+        {
+          "name": "Occhio di Heimdall",
+          "damage": 13
+        }
+      ],
+      "special": [
+        {
+          "name": "Riflesso Divino",
+          "damage": 0,
+          "effect": "Riflette il prossimo attacco"
+        },
+        {
+          "name": "Giudizio dell’Alba",
+          "damage": 33,
+          "effect": "Stordisce se l’avversario ha attaccato prima"
+        }
+      ]
+    },
+    "passive": "Ha 20% di probabilità di contrattaccare automaticamente."
   }
 }
