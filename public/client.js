@@ -59,13 +59,16 @@ socket.on("startFight", ({ opponent, attacks }) => {
     successfulHits = 0;
     document.getElementById("fightInterface").style.display = "block";
 
-    // Mostra i pulsanti attacchi (attacchi è ora un array di stringhe)
+    // Mostra i pulsanti attacchi (array di stringhe)
     ["attack1", "attack2", "attack3", "special1", "special2"].forEach((id, index) => {
         const button = document.getElementById(id);
         if (attacks[index]) {
-            button.innerText = attacks[index]; // CORRETTO QUI
+            button.innerText = attacks[index];  // Mostra correttamente i nomi
             button.disabled = true;
             button.dataset.attackIndex = index;
+        } else {
+            button.innerText = "";
+            button.disabled = true;
         }
     });
 
