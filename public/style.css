@@ -1,11 +1,11 @@
+/* ----------------- Base ----------------- */
 body {
-    background-color: #0b0c2a; /* blu notte */
-    background-image: none; /* rimuove eventuali immagini */
+    background-color: #0b0c2a; /* Blu notte */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-size: cover;
     color: #f5f5f5;
     margin: 0;
     padding: 0;
+    background-size: cover;
 }
 
 h1, h2 {
@@ -20,40 +20,64 @@ h1, h2 {
     width: 150px;
 }
 
-.form-container {
-    background-color: rgba(0, 0, 0, 0.6);
+/* ----------------- Login e Registrazione ----------------- */
+.container {
+    max-width: 500px;
+    margin: auto;
     padding: 20px;
-    border-radius: 10px;
-    margin: 20px auto;
-    max-width: 400px;
-    box-shadow: 0 0 10px #000;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
+    text-align: center;
+}
+
+.form-box {
+    margin-bottom: 20px;
 }
 
 input, select, button {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
+    padding: 12px;
+    margin-top: 10px;
+    margin-bottom: 15px;
     border-radius: 5px;
     border: none;
     font-size: 16px;
+    box-sizing: border-box;
+}
+
+select {
+    background-color: #111;
+    color: #fff;
 }
 
 button {
     background-color: #444;
     color: white;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
     background-color: #666;
+    transform: scale(1.02);
 }
 
 #message {
     text-align: center;
     font-weight: bold;
+    margin-top: 10px;
 }
 
+/* ----------------- Divider ----------------- */
+.divider {
+    border: 0;
+    height: 1px;
+    background: #999;
+    margin: 30px 0;
+}
+
+/* ----------------- Gioco ----------------- */
 #gameContainer {
     display: flex;
     flex-direction: column;
@@ -68,15 +92,36 @@ button:hover {
     margin-bottom: 20px;
     color: #fff;
     font-size: 18px;
+    text-align: center;
 }
 
-#players, #roomSelect, #challengeTarget {
-    margin: 10px 0;
-    font-size: 16px;
+#roomControls,
+#challengeControls,
+#playerList {
+    margin: 20px 0;
+    text-align: center;
+}
+
+#currentRoom {
+    font-style: italic;
+    margin-top: 10px;
+}
+
+#players {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#players li {
+    background-color: rgba(255, 255, 255, 0.05);
+    margin: 5px 0;
     padding: 10px;
     border-radius: 5px;
+    font-size: 15px;
 }
 
+/* ----------------- Combattimento ----------------- */
 #fightInterface {
     margin-top: 30px;
     padding: 20px;
@@ -95,10 +140,18 @@ button:hover {
     border-radius: 5px;
     font-family: monospace;
     white-space: pre-wrap;
+    min-height: 80px;
+    text-align: left;
+}
+
+.attack-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
 }
 
 .attack-button {
-    margin: 5px;
     padding: 10px 15px;
     font-size: 14px;
     border: none;
@@ -107,6 +160,8 @@ button:hover {
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    flex: 1 1 40%;
+    min-width: 100px;
 }
 
 .attack-button:hover:not(:disabled) {
@@ -117,4 +172,27 @@ button:hover {
 .attack-button:disabled {
     opacity: 0.4;
     cursor: not-allowed;
+}
+
+/* ----------------- Effetti visivi ----------------- */
+#effectContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.fightFlash {
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 0, 0.2);
+    animation: flash 0.5s ease-out;
+}
+
+@keyframes flash {
+    from { opacity: 1; }
+    to { opacity: 0; }
 }
