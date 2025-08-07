@@ -116,8 +116,8 @@ io.on("connection", (socket) => {
       io.to(id).emit("startFight", {
         opponent: opponent.name,
         attacks: [
-          ...self.characterData.attacks,
-          ...self.characterData.specials
+          ...self.characterData.attacks.map(name => ({ name })),
+          ...self.characterData.specials.map(name => ({ name }))
         ]
       });
     });
