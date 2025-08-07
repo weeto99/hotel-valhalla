@@ -64,7 +64,7 @@
     <script src="client.js"></script>
     <script>
         function logout() {
-            localStorage.clear();
+            sessionStorage.clear(); // ✅ correggi da localStorage a sessionStorage
             window.location.href = "login.html";
         }
     </script>
