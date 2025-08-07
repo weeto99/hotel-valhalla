@@ -8,10 +8,12 @@ body {
     background-size: cover;
 }
 
-h1, h2 {
+/* ----------------- Titoli e Logo ----------------- */
+h1, h2, h3 {
     text-align: center;
     color: #ffd700;
     text-shadow: 2px 2px 5px #000;
+    margin: 10px 0;
 }
 
 .logo {
@@ -100,6 +102,8 @@ button:hover {
 #playerList {
     margin: 20px 0;
     text-align: center;
+    width: 100%;
+    max-width: 500px;
 }
 
 #currentRoom {
