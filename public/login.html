@@ -22,7 +22,7 @@
             <h2>Registrati</h2>
             <input type="text" id="registerUsername" placeholder="Username">
             <input type="password" id="registerPassword" placeholder="Password">
-            
+
             <label for="characterSelect">Scegli il tuo personaggio norreno:</label>
             <select id="characterSelect">
                 <option value="Thor">Thor - Martello del Tuono</option>
@@ -65,11 +65,10 @@
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    // ✅ Usa sessionStorage invece di localStorage
                     sessionStorage.setItem("username", username);
                     sessionStorage.setItem("character", data.character);
-                    message.style.color = "green";
-                    message.innerText = "Login riuscito! Reindirizzamento in corso...";
+                    message.style.color = "lightgreen";
+                    message.innerText = "Login riuscito! Reindirizzamento...";
                     setTimeout(() => {
                         window.location.href = "game.html";
                     }, 1000);
@@ -100,7 +99,7 @@
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    message.style.color = "green";
+                    message.style.color = "lightgreen";
                     message.innerText = "Registrazione completata! Ora puoi accedere.";
                 } else {
                     message.style.color = "red";
