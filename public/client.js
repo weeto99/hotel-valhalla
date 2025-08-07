@@ -1,14 +1,12 @@
 const socket = io();
 let currentOpponent = null;
 let myCharacter = null;
-let successfulHits = 0;
 
 // Caricamento iniziale
 window.onload = () => {
     const username = sessionStorage.getItem("username");
     const character = sessionStorage.getItem("character");
 
-    // 🔒 Reindirizza se non loggato
     if (!username || !character) {
         sessionStorage.clear();
         window.location.href = "login.html";
@@ -44,8 +42,9 @@ function move() {
 
 function challengePlayer() {
     const target = document.getElementById("challengeTarget").value.trim();
-    if (!target) return;
-    socket.emit("sendChallenge", target);
+    if (target) {
+        socket.emit("sendChallenge", target);
+    }
 }
 
 socket.on("challengeRequest", ({ from }) => {
@@ -58,15 +57,17 @@ socket.on("challengeRequest", ({ from }) => {
 
 socket.on("startFight", ({ opponent, attacks }) => {
     currentOpponent = opponent;
-    successfulHits = 0;
     document.getElementById("fightInterface").style.display = "block";
 
-    ["attack1", "attack2", "attack3", "special1", "special2"].forEach((id, index) => {
-        const button = document.getElementById(id);
+    const attackButtons = ["attack1", "attack2", "attack3", "special1", "special2"];
+    attackButtons.forEach((id, index) => {
+        const btn = document.getElementById(id);
         if (attacks[index]) {
-            button.innerText = attacks[index];
-            button.disabled = true;
-            button.dataset.attackIndex = index;
+            btn.innerText = attacks[index];
+            btn.disabled = true;
+            btn.dataset.attackIndex = index;
+        } else {
+            btn.style.display = "none";
         }
     });
 
@@ -77,10 +78,9 @@ socket.on("yourTurn", () => {
     document.getElementById("fightLog").innerText = "È il tuo turno! Scegli un attacco:";
     document.querySelectorAll(".attack-button").forEach(button => {
         const idx = parseInt(button.dataset.attackIndex);
-        if (button.id.startsWith("special") && successfulHits < 2) {
-            button.disabled = true;
-        } else {
-            button.disabled = false;
+        button.disabled = false;
+        if (button.id.startsWith("special")) {
+            // Il server verificherà se è disponibile
         }
     });
 });
@@ -95,20 +95,14 @@ socket.on("fightEnd", (result) => {
     document.getElementById("fightLog").innerText = result;
     document.getElementById("fightInterface").style.display = "none";
     currentOpponent = null;
-    successfulHits = 0;
 });
 
 function sendAttack(index) {
-    const isSpecial = index >= 3;
-    if (isSpecial && successfulHits < 2) {
-        alert("Gli attacchi speciali si sbloccano dopo 2 colpi normali riusciti!");
-        return;
-    }
-
-    if (!isSpecial) successfulHits++;
+    const parsedIndex = parseInt(index);
+    const isSpecial = parsedIndex >= 3;
 
     socket.emit("fightAction", {
-        index: parseInt(index),
+        index: parsedIndex,
         actionType: isSpecial ? "special" : "normal"
     });
 
