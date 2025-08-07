@@ -46,11 +46,20 @@
     </div>
 
     <script>
+        // Se già loggato, reindirizza subito al gioco
+        window.onload = () => {
+            const user = localStorage.getItem("username");
+            const character = localStorage.getItem("character");
+            if (user && character) {
+                window.location.href = "game.html";
+            }
+        };
+
         function login() {
             const username = document.getElementById("loginUsername").value.trim();
             const password = document.getElementById("loginPassword").value;
-
             const message = document.getElementById("message");
+            message.innerText = "";
 
             if (!username || !password) {
                 message.style.color = "red";
@@ -66,10 +75,10 @@
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    message.style.color = "green";
-                    message.innerText = "Login riuscito!";
                     localStorage.setItem("username", username);
                     localStorage.setItem("character", data.character);
+                    message.style.color = "green";
+                    message.innerText = "Login riuscito! Reindirizzamento...";
                     setTimeout(() => {
                         window.location.href = "game.html";
                     }, 1000);
@@ -84,8 +93,8 @@
             const username = document.getElementById("registerUsername").value.trim();
             const password = document.getElementById("registerPassword").value;
             const character = document.getElementById("characterSelect").value;
-
             const message = document.getElementById("message");
+            message.innerText = "";
 
             if (!username || !password || !character) {
                 message.style.color = "red";
@@ -101,8 +110,13 @@
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
+                    localStorage.setItem("username", username);
+                    localStorage.setItem("character", character);
                     message.style.color = "green";
-                    message.innerText = "Registrazione completata! Ora puoi accedere.";
+                    message.innerText = "Registrazione completata! Accesso in corso...";
+                    setTimeout(() => {
+                        window.location.href = "game.html";
+                    }, 1000);
                 } else {
                     message.style.color = "red";
                     message.innerText = data.message;
