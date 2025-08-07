@@ -53,11 +53,19 @@ let players = {};
 let fights = {};
 
 io.on("connection", (socket) => {
-  console.log("🟢 Nuovo client:", socket.id);
+  console.log("🟢 Nuovo client connesso:", socket.id);
 
   socket.on("join", ({ username, character }) => {
     const user = users.find(u => u.username === username);
     if (!user) return;
+
+    // 🔁 Elimina eventuali sessioni precedenti dello stesso utente
+    Object.entries(players).forEach(([id, player]) => {
+      if (player.name === username) {
+        delete players[id];
+        console.log(`⚠️ Rimosso duplicato di ${username}`);
+      }
+    });
 
     const characterData = characters[character];
     players[socket.id] = {
@@ -116,8 +124,8 @@ io.on("connection", (socket) => {
       io.to(id).emit("startFight", {
         opponent: opponent.name,
         attacks: [
-          ...self.characterData.attacks.map(name => ({ name })),
-          ...self.characterData.specials.map(name => ({ name }))
+          ...self.characterData.attacks,
+          ...self.characterData.specials
         ]
       });
     });
@@ -189,8 +197,24 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    delete players[socket.id];
-    io.emit("playersUpdate", players);
+    console.log(`🔴 Disconnesso: ${socket.id}`);
+
+    const disconnectedPlayer = players[socket.id];
+    if (disconnectedPlayer) {
+      const username = disconnectedPlayer.name;
+      delete players[socket.id];
+
+      // Rimuovi il player dai combattimenti
+      for (const [fightId, fight] of Object.entries(fights)) {
+        if (fight.players.includes(socket.id)) {
+          const otherId = fight.players.find(id => id !== socket.id);
+          io.to(otherId).emit("fightEnd", `${username} si è disconnesso.`);
+          delete fights[fightId];
+        }
+      }
+
+      io.emit("playersUpdate", players);
+    }
   });
 });
 
