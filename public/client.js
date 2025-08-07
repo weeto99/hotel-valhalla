@@ -1,24 +1,26 @@
 const socket = io();
 let currentOpponent = null;
-let myCharacter = localStorage.getItem("character");
+let myCharacter = null;
 let successfulHits = 0;
 
 // Caricamento iniziale
 window.onload = () => {
-    const username = localStorage.getItem("username");
-    const character = localStorage.getItem("character");
+    const username = sessionStorage.getItem("username");
+    const character = sessionStorage.getItem("character");
 
+    // 🔒 Se non loggato, reindirizza al login
     if (!username || !character) {
-        alert("Effettua il login prima di accedere al gioco.");
+        sessionStorage.clear();
         window.location.href = "login.html";
         return;
     }
 
+    myCharacter = character;
     socket.emit("join", { username, character });
 };
 
 socket.on("playersUpdate", (players) => {
-    const me = Object.values(players).find(p => p.name === localStorage.getItem("username"));
+    const me = Object.values(players).find(p => p.name === sessionStorage.getItem("username"));
     if (!me) return;
 
     document.getElementById("playerInfo").innerText =
@@ -59,16 +61,12 @@ socket.on("startFight", ({ opponent, attacks }) => {
     successfulHits = 0;
     document.getElementById("fightInterface").style.display = "block";
 
-    // Mostra i pulsanti attacchi (array di stringhe)
     ["attack1", "attack2", "attack3", "special1", "special2"].forEach((id, index) => {
         const button = document.getElementById(id);
         if (attacks[index]) {
-            button.innerText = attacks[index];  // Mostra correttamente i nomi
+            button.innerText = attacks[index]; // correzione: attacchi come stringhe
             button.disabled = true;
             button.dataset.attackIndex = index;
-        } else {
-            button.innerText = "";
-            button.disabled = true;
         }
     });
 
